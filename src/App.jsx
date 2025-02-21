@@ -74,7 +74,7 @@ function App() {
 
   const calculateInterest = (e) => {
     e.preventDefault();
-    setInterest(Number((intrestRate / 100) * year * principle))
+    setInterest(Number((intrestRate * year * principle) / 100))
   }
   const reset = () => {
     setPrinciple("");
@@ -96,14 +96,26 @@ function App() {
             <p>Total Simple Interest</p>
           </div>
           <form action="" className='w-100' onSubmit={calculateInterest}>
-            <div>
-              <TextField id="amount" label="Principle" variant="outlined" className='w-100' style={{ marginTop: '20px' }} name='principleField' value={principle} onChange={(e) => isValid(e)} />
+            <div className='w-100' style={{ marginTop: '20px' }} >
+              <TextField id="amount" className='w-100' label="Principle" variant="outlined" name='principleField' value={principle} onChange={(e) => isValid(e)} />
+              {
+                !isPrincipleValid &&
+                <p style={{ color: "red" }}>Invalid Input</p>
+              }
             </div>
-            <div>
-              <TextField id="rate" label="Intrest" variant="outlined" className='w-100' style={{ marginTop: '20px' }} name='interestField' value={intrestRate} onChange={(e) => isValid(e)} />
+            <div className='w-100' style={{ marginTop: '20px' }}>
+              <TextField id="rate" className='w-100' label="Intrest" variant="outlined" name='interestField' value={intrestRate} onChange={(e) => isValid(e)} />
+              {
+                !isRateValid &&
+                <p style={{ color: "red" }}>Invalid Input</p>
+              }
             </div>
-            <div>
-              <TextField id="year" label="Year" variant="outlined" className='w-100' style={{ marginTop: '20px' }} name='yearField' value={year} onChange={(e) => isValid(e)} />
+            <div className='w-100' style={{ marginTop: '20px' }}>
+              <TextField id="year" className='w-100' label="Year" variant="outlined" name='yearField' value={year} onChange={(e) => isValid(e)} />
+              {
+                !isYearValid &&
+                <p style={{ color: "red" }}>Invalid Input</p>
+              }
             </div>
             <div style={{ marginTop: '20px' }} className='d-flex justify-content-between '>
               <Button type='submit' variant="contained" style={{ width: '190px' }} disabled={!isPrincipleValid || !isRateValid || !isYearValid || !isZeroVlaid}>Calculate Interest</Button>
